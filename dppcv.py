@@ -100,12 +100,10 @@ def run_server():
     graphics = Graphics(config)
     print "Allowing exec-python: " + str(config.has_key('allow-exec-python'))
     server = SimpleWebSocketServer('', 8001, PrintServer)
-    #server.serveforever()
     thread.start_new_thread(server.serveforever, tuple([{'graphics':graphics, 'config':config}]) )
-        lt = time.time()*1000
-        while True:
-                t = time.time()*1000
-                #server.serveonce()
-                graphics.update(t-lt)
-                lt = t
+    lt = time.time()*1000
+    while True:
+        t = time.time()*1000
+        graphics.update(t-lt)
+        lt = t
 run_server()
